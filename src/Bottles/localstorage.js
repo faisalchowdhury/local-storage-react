@@ -3,7 +3,7 @@ const addCart = (id) => {
   oldCartData.push(id);
   
   const stringCart = JSON.stringify(oldCartData);
-  console.log(stringCart)
+  // console.log(stringCart)
   localStorage.setItem('cart' , stringCart);
 }
 

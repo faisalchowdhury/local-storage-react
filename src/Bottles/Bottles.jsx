@@ -1,7 +1,7 @@
 import "./product.css";
 import Bottle from './Bottle';
 import { use, useEffect, useState } from "react";
-import {getLocalStorage} from './localstorage.js'
+import {getLocalStorage, addCart} from './localstorage.js'
 
 
 
@@ -15,8 +15,14 @@ const Bottles = ({fetchBottles}) => {
   const [cartData,setCartData] = useState([]) 
    const data = use(fetchBottles);
   
-   
-     
+
+   const handleClick = (singleBottle) => { 
+    addCart(singleBottle.id);
+  //  console.log(singleBottle)
+   const newCart = [...cartData , singleBottle];
+   setCartData(newCart);
+  }
+
 
      
     useEffect(()=> {
@@ -37,10 +43,18 @@ const Bottles = ({fetchBottles}) => {
      );
     setCartData(storeCart);
      
+     
     }
      , [])
   
-  
+   
+    const handleDelete = (id) => {
+      
+      const removed = cartData.filter(sin => sin.id !== id)
+
+      setCartData(removed)
+
+    }
 
     
    return (
@@ -49,13 +63,18 @@ const Bottles = ({fetchBottles}) => {
 
    <div>
      <h4>cart : {cartData.length}</h4>
-     <div>
-       
+     <div style={{display:"flex",flexWrap: 'wrap'}} >
+       {
+        cartData.map((singleCart,id) => <div key={id}>
+          <img style={{width : '100px' ,margin: "5px"}} src={singleCart.img}/>
+          <button onClick={()=> handleDelete(singleCart.id)}>X</button>
+          </div>)
+       }
      </div>
    </div>
    <div className="card-container">
    {
-            data.map(singleBottle => <Bottle key={singleBottle.id} singleBottle={singleBottle}></Bottle>)
+            data.map(singleBottle => <Bottle key={singleBottle.id} singleBottle={singleBottle} handleClick={handleClick}></Bottle>)
           }
    </div>
     </>

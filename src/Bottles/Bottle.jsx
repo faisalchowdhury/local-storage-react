@@ -1,14 +1,10 @@
 
 import './product.css';
-import {addCart} from './localstorage.js'
+// import {addCart} from './localstorage.js'
 import { useState ,useEffect} from 'react';
-const Bottle = ({singleBottle}) => {
+const Bottle = ({singleBottle, handleClick}) => {
     
 
-  const handleClick = () => {
-    addCart(singleBottle.id);
-
-  }
 
 
     return (
@@ -20,7 +16,7 @@ const Bottle = ({singleBottle}) => {
                     <img src={singleBottle.img} alt="" />
                     <h4>{singleBottle.name}</h4>
                     <h3>{singleBottle.price}</h3>
-                    <button onClick={() => handleClick()}>Add to Cart</button>
+                    <button onClick={() => handleClick(singleBottle)}>Add to Cart</button>
                 </div>
          
         </>

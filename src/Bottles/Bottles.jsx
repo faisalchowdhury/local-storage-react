@@ -11,41 +11,38 @@ import {getLocalStorage, addCart} from './localstorage.js'
 
 
 const Bottles = ({fetchBottles}) => {
-  
-  const [cartData,setCartData] = useState([]) 
-   const data = use(fetchBottles);
+  // const selectedData = getLocalStorage();
+  const data = use(fetchBottles);
+  const getStoredCart = getLocalStorage();
+  const storeCart = []
+  getStoredCart.forEach(cart => 
+    {
+      data.find(bottle => {
+        if(bottle.id === cart){
+          storeCart.push(bottle);
+          
+        }
+      })
+    }
+    
+  );
+  const [cartData,setCartData] = useState(storeCart) 
   
 
    const handleClick = (singleBottle) => { 
     addCart(singleBottle.id);
-  //  console.log(singleBottle)
+
+   
    const newCart = [...cartData , singleBottle];
+
    setCartData(newCart);
   }
 
 
-     
-    useEffect(()=> {
-     
-     const getStoredCart = getLocalStorage();
-     
-     const storeCart = []
-     getStoredCart.forEach(cart => 
-     {
-      data.find(bottle => {
-        if(bottle.id === cart){
-         storeCart.push(bottle);
-         
-        }
-      })
-     }
-     
-     );
-    setCartData(storeCart);
-     
-     
-    }
-     , [])
+  
+
+
+    
   
    
     const handleDelete = (id) => {

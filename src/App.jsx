@@ -15,7 +15,7 @@ function App() {
       <Suspense fallback={<h2> Loading..... </h2>}>
          <Bottles fetchBottles={fetchBottles}></Bottles>
       </Suspense>
-   </ErrorBoundary>
+     </ErrorBoundary>
     </>
   )
 }
